@@ -1,0 +1,51 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.5.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'cn.qtesports'
+version = '0.9.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+jar {
+	baseName = project.name
+	enabled = true
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
+
+	compile(
+			"org.apache.commons:commons-lang3:3.7",
+			"commons-codec:commons-codec:1.11",
+			"commons-io:commons-io:2.6",
+			"org.projectlombok:lombok:1.18.2",
+			"org.slf4j:log4j-over-slf4j:1.7.25",
+			"com.aliyun.oss:aliyun-sdk-oss:2.8.3"
+	)
+	compile(
+			"com.qcloud:cos_api:5.4.5"
+	){
+		exclude(module: 'slf4j-log4j12')
+		exclude(module: 'commons-codec')
+	}
+
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
